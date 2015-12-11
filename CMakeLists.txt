@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.11)
 project(Raytracer)
 
-include_directories(include)
+include_directories(include src)
 
 file(GLOB_RECURSE srcFiles src/**.cpp)
 
