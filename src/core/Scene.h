@@ -4,14 +4,13 @@
 #include <list>
 #include "Raytracer.h"
 
-class Scene{
+class Scene {
 public:
-	Scene();
-	~Scene();
 	void addObject(Object *o);
 	glm::vec3 launchRay(Ray ray);
+
 private:
-	std::list<Object*> objects;
+	std::list<Object *> objects;
 };
 
 #endif

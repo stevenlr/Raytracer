@@ -4,10 +4,13 @@
 #include "Raytracer.h"
 
 class Sphere : public Object {
+public:
 	Sphere(glm::vec3 pos, float r, Material m) :
-		pos(pos), radius(r), material(m), radius2(r * r);
+		Object(m),
+		pos(pos), radius(r), radius2(r * r)
+	{}
 
-	override bool intersect(Ray ray, Hit &hit) const;
+	bool intersect(Ray ray, Hit &hit) const override;
 
 	glm::vec3 pos;
 	float radius;

@@ -5,6 +5,7 @@
 
 class Hit {
 public:
+	Hit() = default;
 	Hit(Material material, glm::vec3 normal, float t = 0) :
 		material(material), normal(normal), t(t)
 	{}

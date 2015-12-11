@@ -11,7 +11,7 @@ public:
 
 	virtual ~Object() {}
 
-	virtual bool intersect(Ray ray, Hit &hit) = 0 const;
+	virtual bool intersect(Ray ray, Hit &hit) const = 0;
 
 	Material material;
 };

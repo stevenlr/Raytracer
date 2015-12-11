@@ -2,7 +2,7 @@
 
 using namespace glm;
 
-vec3 shade(const Ray &ray)
+vec3 Hit::shade(const Ray &ray) const
 {
 	return material.diffuseColor;
 }

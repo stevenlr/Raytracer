@@ -1,6 +1,6 @@
 #include "Raytracer.h"
 
-bool intersect(Ray ray, Hit &hit)
+bool Sphere::intersect(Ray ray, Hit &hit) const
 {
 	float tproj = glm::dot(ray.dir, pos - ray.orig);
 
