@@ -21,13 +21,15 @@ int main(int argc, char *argv[]) {
 	Scene scene;
 
 	Object *sphere1 = new Sphere(1, Material(glm::vec3(1, 0, 0)));
-	Object *sphere2 = new Sphere(1, Material(glm::vec3(0, 0, 1)));
+	Object *sphere2 = new Sphere(0.5f, Material(glm::vec3(1, 1, 0)));
+	Object *plane = new Plane(vec3(1, 0, 0), Material(glm::vec3(0, 1, 0)));
 
-	sphere1->transform.translate(1, 0, 0).scale(0.5);
-	sphere2->transform.scale(0.5).translate(1, 0, 0);
+	sphere2->transform.translate(1, 0, 0);
+	plane->transform.translate(-0.1, 0, 0);
 
 	scene.addObject(sphere1);
 	scene.addObject(sphere2);
+	scene.addObject(plane);
 
 	cimg_forXY(image, x, y) {
 		Ray ray = camera.computeRay(x, y);
@@ -44,8 +46,8 @@ int main(int argc, char *argv[]) {
 
 	cout << "done" << endl;
 
-	disp.display(image);
-	cin.get();
+	disp.close();
+	image.display();
 
 	return 0;
 }

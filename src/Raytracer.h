@@ -11,6 +11,8 @@ class Camera;
 class Scene;
 class Ray;
 class Transform;
+class Plane;
+class Sphere;
 
 #include "core/Material.h"
 #include "core/Hit.h"
@@ -21,5 +23,6 @@ class Transform;
 #include "core/Ray.h"
 
 #include "primitives/Sphere.h"
+#include "primitives/Plane.h"
 
 #endif
