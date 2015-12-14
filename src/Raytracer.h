@@ -10,6 +10,7 @@ class Object;
 class Camera;
 class Scene;
 class Ray;
+class AABB;
 
 #include "core/Material.h"
 #include "core/Hit.h"
@@ -17,6 +18,7 @@ class Ray;
 #include "core/Camera.h"
 #include "core/Scene.h"
 #include "core/Ray.h"
+#include "core/AABB.h"
 
 #include "primitives/Sphere.h"
 

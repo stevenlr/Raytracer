@@ -28,3 +28,9 @@ bool Sphere::intersect(Ray ray, Hit &hit) const
 
 	return true;
 }
+
+AABB getAABB() const
+{
+	float radiusDemi = radius / 2;
+	return AABB(glm::vec3(pos) - radiusDemi, glm::vec3(pos) + radiusDemi);
+}
