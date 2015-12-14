@@ -11,13 +11,19 @@ void Scene::addObject(Object *o) {
 glm::vec3 Scene::launchRay(Ray ray) {
  	bool reached = false;
  	Hit hit;
+ 	Ray rayLocalMin(ray);
 
 	for (list<Object*>::iterator it = objects.begin(); it != objects.end(); ++it) {
-		if ((*it)->intersect(ray, hit)) {
-			ray.tMin = hit.t;
+		Object *o = *it;
+
+		Ray rayLocal = ray;
+		rayLocal.transform(o->transform);
+
+		if (o->intersect(rayLocal, hit)) {
 			reached = true;
+			rayLocalMin = rayLocal;
 		}
 	}
 
-	return reached ? hit.shade(ray) : glm::vec3(1);
+	return reached ? hit.shade(rayLocalMin) : glm::vec3(1);
 }

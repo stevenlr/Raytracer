@@ -10,9 +10,11 @@ class Object;
 class Camera;
 class Scene;
 class Ray;
+class Transform;
 
 #include "core/Material.h"
 #include "core/Hit.h"
+#include "core/Transform.h"
 #include "core/Object.h"
 #include "core/Camera.h"
 #include "core/Scene.h"

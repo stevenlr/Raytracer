@@ -14,6 +14,7 @@ public:
 	virtual bool intersect(Ray ray, Hit &hit) const = 0;
 
 	Material material;
+	Transform transform;
 };
 
 #endif

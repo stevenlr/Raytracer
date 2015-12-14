@@ -5,14 +5,13 @@
 
 class Sphere : public Object {
 public:
-	Sphere(glm::vec3 pos, float r, Material m) :
+	Sphere(float r, Material m) :
 		Object(m),
-		pos(pos), radius(r), radius2(r * r)
+		radius(r), radius2(r * r)
 	{}
 
 	bool intersect(Ray ray, Hit &hit) const override;
 
-	glm::vec3 pos;
 	float radius;
 	float radius2;
 };

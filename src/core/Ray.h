@@ -1,6 +1,8 @@
 #ifndef CORE_RAY_H
 #define CORE_RAY_H
 
+#include "Raytracer.h"
+
 #include <glm/glm.hpp>
 
 class Ray {
@@ -13,6 +15,8 @@ public:
 	}
 
 	Ray &operator=(const Ray & ray) = default;
+
+	void transform(const Transform &t);
 
 	float tMin;
 	glm::vec3 orig;

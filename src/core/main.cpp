@@ -20,7 +20,14 @@ int main(int argc, char *argv[]) {
 			70, width, height, 0.01f, 1000.0f);
 	Scene scene;
 
-	scene.addObject(new Sphere(vec3(0, 0, 0), 1, Material(glm::vec3(1, 0, 0))));
+	Object *sphere1 = new Sphere(1, Material(glm::vec3(1, 0, 0)));
+	Object *sphere2 = new Sphere(1, Material(glm::vec3(0, 0, 1)));
+
+	sphere1->transform.translate(1, 0, 0).scale(0.5);
+	sphere2->transform.scale(0.5).translate(1, 0, 0);
+
+	scene.addObject(sphere1);
+	scene.addObject(sphere2);
 
 	cimg_forXY(image, x, y) {
 		Ray ray = camera.computeRay(x, y);
