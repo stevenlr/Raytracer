@@ -16,14 +16,20 @@ bool Sphere::intersect(Ray ray, Hit &hit) const
 
 	float dt = sqrt(radius2 - dist2Proj);
 
-	hit.reached = true;
-
+	float t;
 	if (dist2Min > radius2) {
-		hit.t = tproj + dt;
+		t = tproj - dt;
 	} else {
-		hit.t = tproj - dt;
+		t = tproj + dt;
 	}
 
+	if (t < ray.tMin || t > hit.t) {
+		hit.reached = false;
+		return false;
+	}
+
+	hit.t = t;
+	hit.reached = true;
 	hit.material = material;
 
 	return true;

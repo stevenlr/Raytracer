@@ -6,13 +6,13 @@
 class Hit {
 public:
 	Hit() = default;
-	Hit(Material material, glm::vec3 normal, float t = 0) :
+	Hit(Material material, glm::vec3 normal, float t = std::numeric_limits<float>::max()) :
 		material(material), normal(normal), t(t)
 	{}
 
 	Hit(const Hit &h) = default;
 	Hit &operator=(const Hit &h) = default;
-		
+
 	glm::vec3 shade(const Ray &ray) const;
 
 	bool reached;

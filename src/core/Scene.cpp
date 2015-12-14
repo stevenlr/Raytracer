@@ -14,7 +14,6 @@ glm::vec3 Scene::launchRay(Ray ray) {
 
 	for (list<Object*>::iterator it = objects.begin(); it != objects.end(); ++it) {
 		if ((*it)->intersect(ray, hit)) {
-			ray.tMin = hit.t;
 			reached = true;
 		}
 	}
