@@ -21,6 +21,8 @@ int main(int argc, char *argv[]) {
 	Scene scene;
 
 	scene.addObject(new Sphere(vec3(0, 0, 0), 1, Material(glm::vec3(1, 0, 0))));
+	scene.addObject(new Sphere(vec3(1, 0, 0), 0.5f, Material(glm::vec3(1, 1, 0))));
+	scene.addObject(new Plane(vec3(-0.1, 0, 0), vec3(1, 0, 0), Material(glm::vec3(0, 1, 0))));
 
 	cimg_forXY(image, x, y) {
 		Ray ray = camera.computeRay(x, y);
@@ -37,8 +39,8 @@ int main(int argc, char *argv[]) {
 
 	cout << "done" << endl;
 
-	disp.display(image);
-	cin.get();
+	disp.close();
+	image.display();
 
 	return 0;
 }

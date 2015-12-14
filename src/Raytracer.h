@@ -19,5 +19,6 @@ class Ray;
 #include "core/Ray.h"
 
 #include "primitives/Sphere.h"
+#include "primitives/Plane.h"
 
 #endif
