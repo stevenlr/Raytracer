@@ -24,5 +24,7 @@ bool Sphere::intersect(Ray ray, Hit &hit) const
 		hit.t = tproj - dt;
 	}
 
+	hit.material = material;
+
 	return true;
 }

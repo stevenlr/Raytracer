@@ -7,7 +7,7 @@ Camera::Camera(glm::vec3 position, glm::vec3 target, glm::vec3 up, float fov, in
 		height(height), width(width) {
 	view = glm::lookAt(position, target, up);
 	projection = glm::perspectiveFov(fov, static_cast<float>(width), static_cast<float>(height), near, far);
-	invViewProjection = glm::inverse(projection);
+	invViewProjection = glm::inverse(projection * view);
 }
 
 Ray Camera::computeRay(int x, int y) {

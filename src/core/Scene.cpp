@@ -19,5 +19,5 @@ glm::vec3 Scene::launchRay(Ray ray) {
 		}
 	}
 
-	return reached ? hit.shade(ray) : glm::vec3(0);
+	return reached ? hit.shade(ray) : glm::vec3(1);
 }
