@@ -11,7 +11,7 @@ public:
 	{}
 
 	bool intersect(Ray ray, Hit &hit) const override;
-	AABB getAABB() const;
+	AABB* getAABB() const;
 
 	glm::vec3 pos;
 	float radius;

@@ -23,3 +23,12 @@ bool AABB::intersect(Ray ray, Hit &hit) const
 
 	return hit.reached;
 }
+
+bool AABB::intersect(AABB aabb) const
+{
+	//todo Replace box2 by pos2, box by pos + add z coord
+	return	box2.x				<= box1.x + box1.w -1
+		and box2.x + box2.w -1	>= box1.x 
+		and box2.y 				<= box1.y + box1.h -1
+		and box2.y + box2.h -1	>= box1.y;
+}
