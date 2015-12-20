@@ -5,7 +5,7 @@
 
 class Hit {
 public:
-	Hit() = default;
+	Hit();
 	Hit(Material material, glm::vec3 normal, float t = std::numeric_limits<float>::max()) :
 		material(material), normal(normal), t(t)
 	{}

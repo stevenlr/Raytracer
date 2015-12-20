@@ -25,5 +25,5 @@ glm::vec3 Scene::launchRay(Ray ray) {
 		}
 	}
 
-	return reached ? hit.shade(rayLocalMin) : glm::vec3(1);
+	return reached ? hit.shade(rayLocalMin) : glm::vec3(0);
 }

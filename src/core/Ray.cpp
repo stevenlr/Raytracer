@@ -14,7 +14,7 @@ void Ray::transform(const Transform &t)
 	orig = glm::vec3(o) / o.w;
 	dir = glm::mat3(t.getInverseTransform()) * dir;
 
-	float newLength = length(dir);
+	float newLength = glm::length(dir);
 	tMin /= newLength;
 	dir /= newLength;
 }

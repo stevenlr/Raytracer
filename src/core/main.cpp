@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
 	Object *plane = new Plane(vec3(1, 0, 0), Material(glm::vec3(0, 1, 0)));
 
 	sphere2->transform.translate(1, 0, 0);
-	plane->transform.translate(-0.1, 0, 0);
+	plane->transform.translate(-0.1f, 0, 0);
 
 	scene.addObject(sphere1);
 	scene.addObject(sphere2);
