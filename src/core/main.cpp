@@ -39,10 +39,18 @@ int main(int argc, char *argv[]) {
     scene.addLight(sun);
     scene.addLight(point);
 
-	cimg_forXY(image, x, y) {
-		Ray ray = camera.computeRay(x, y);
-		glm::vec3 color = scene.getShadeFromRay(ray);
+    int ssNbRays = 4;
+    float ssOffsets[4][2] = {{0, 0}, {0.5, 0}, {0, 0.5}, {0.5, 0.5}};
 
+	cimg_forXY(image, x, y) {
+        glm::vec3 color(0);
+
+        for (int i = 0; i < ssNbRays; ++i) {
+		    Ray ray = camera.computeRay(x + ssOffsets[i][0], y + ssOffsets[i][1]);
+		    color += scene.getShadeFromRay(ray);
+        }
+
+        color /= ssNbRays;
         color = glm::pow(color, vec3(0.45));
         color = glm::clamp(color, vec3(0), vec3(1));
 

@@ -7,7 +7,7 @@ class Camera {
 public:
 	Camera(glm::vec3 position, glm::vec3 target, glm::vec3 up, float fov, int width, int height, float near, float far);
 	
-	Ray computeRay(int x, int y);
+	Ray computeRay(float x, float y);
 
 	int width;
 	int height;
