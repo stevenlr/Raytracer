@@ -25,7 +25,8 @@ bool Plane::intersect(Ray ray, Hit &hit) const
 	hit.t = t;
 	hit.reached = true;
 	hit.material = material;
-	hit.normal = normal;
+	hit.normal = transform.getNormalMatrix() * normal;
+    hit.pos = transform.apply(ray(t));
 	
 	return true;
 }

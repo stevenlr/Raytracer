@@ -25,6 +25,9 @@ public:
 	const glm::mat4 &getInverseTransform() const;
 	const glm::mat3 &getNormalMatrix() const;
 
+    glm::vec3 apply(glm::vec3 p) const;
+    glm::vec3 applyInv(glm::vec3 p) const;
+
 private:
 	void updateCache() const;
 

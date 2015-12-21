@@ -19,6 +19,7 @@ public:
 	float t;
 	Material material;
 	glm::vec3 normal;
+    glm::vec3 pos;
 };
 
 #endif

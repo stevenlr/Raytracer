@@ -90,3 +90,21 @@ void Transform::updateCache() const
 	inverse = glm::inverse(transform);
 	normal = glm::inverse(glm::transpose(mat3(transform)));
 }
+
+vec3 Transform::apply(vec3 p) const
+{
+    updateCache();
+
+    glm::vec4 h(p, 1);
+    h = transform * h;
+    return glm::vec3(h) / h.w;
+}
+
+vec3 Transform::applyInv(vec3 p) const
+{
+    updateCache();
+
+    glm::vec4 h(p, 1);
+    h = inverse * h;
+    return glm::vec3(h) / h.w;
+}
