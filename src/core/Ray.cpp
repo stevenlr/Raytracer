@@ -2,8 +2,8 @@
 
 using namespace glm;
 
-Ray::Ray(glm::vec3 orig, glm::vec3 dir, float tMin) :
-		orig(orig), dir(normalize(dir)), tMin(tMin)
+Ray::Ray(glm::vec3 orig, glm::vec3 dir, float tMin, float tMax) :
+		orig(orig), dir(normalize(dir)), tMin(tMin), tMax(tMax)
 {}
 
 void Ray::transformInv(const Transform &t)
@@ -13,5 +13,6 @@ void Ray::transformInv(const Transform &t)
 
 	float newLength = glm::length(dir);
 	tMin /= newLength;
+    tMax /= newLength;
 	dir /= newLength;
 }

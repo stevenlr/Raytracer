@@ -12,7 +12,6 @@ bool Sphere::intersect(Ray ray, Hit &hit) const
 	float dist2Min = glm::length2(minPoint);
 
 	if ((dist2Min > radius2 && tproj < ray.tMin) || dist2Proj > radius2) {
-		hit.reached = false;
 		return false;
 	}
 
@@ -25,8 +24,7 @@ bool Sphere::intersect(Ray ray, Hit &hit) const
 		t = tproj + dt;
 	}
 
-	if (t < ray.tMin || t > hit.t) {
-		hit.reached = false;
+	if (t < ray.tMin || t > ray.tMax || t > hit.t) {
 		return false;
 	}
 

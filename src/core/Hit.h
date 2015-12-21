@@ -16,7 +16,7 @@ public:
 	glm::vec3 shade(const Ray &ray, const Light *light) const;
     void transform(const Transform &transform);
 
-	bool reached;
+	bool reached = false;
 	float t;
 	Material material;
 	glm::vec3 normal;

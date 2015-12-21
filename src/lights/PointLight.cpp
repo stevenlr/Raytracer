@@ -4,7 +4,10 @@ using namespace glm;
 
 Ray PointLight::getRayFromHit(const Hit &hit) const
 {
-    return Ray(hit.pos, glm::normalize(pos - hit.pos), 0);
+    vec3 diff = pos - hit.pos;
+    float len = glm::length(diff);
+
+    return Ray(hit.pos, diff / len, 0, len);
 }
 
 glm::vec3 PointLight::getColor(glm::vec3 hitPos) const

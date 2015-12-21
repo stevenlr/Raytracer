@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
 
 	Object *sphere1 = new Sphere(1, Material(glm::vec3(1, 0, 0)));
 	Object *sphere2 = new Sphere(0.5f, Material(glm::vec3(1, 1, 0)));
-	Object *plane = new Plane(vec3(1, 0, 0), Material(glm::vec3(0.7f, 0.7f, 0.7f)));
+	Object *plane = new Plane(vec3(1, 0, 0.01), Material(glm::vec3(0.7f, 0.7f, 0.7f)));
 
 	sphere2->transform.translate(1, 0, 0);
 	plane->transform.translate(-0.7f, 0, 0);
@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
 
 	cimg_forXY(image, x, y) {
 		Ray ray = camera.computeRay(x, y);
-		glm::vec3 color = scene.launchRay(ray);
+		glm::vec3 color = scene.getShadeFromRay(ray);
 
         color = glm::pow(color, vec3(0.45));
         color = glm::clamp(color, vec3(0), vec3(1));

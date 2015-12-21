@@ -17,7 +17,7 @@ bool Plane::intersect(Ray ray, Hit &hit) const
 
 	float t = -dotOrig / dotDir;
 
-	if (t < ray.tMin || t > hit.t) {
+	if (t < ray.tMin || t > ray.tMax || t > hit.t) {
 		return false;
 	}
 

@@ -7,7 +7,7 @@
 
 class Ray {
 public:
-	Ray(glm::vec3 orig, glm::vec3 dir, float tMin = 0);
+	Ray(glm::vec3 orig, glm::vec3 dir, float tMin = 0, float tMax = std::numeric_limits<float>::max());
 	Ray(const Ray & ray) = default;
 
 	glm::vec3 operator()(float t) const {
@@ -19,6 +19,7 @@ public:
 	void transformInv(const Transform &t);
 
 	float tMin;
+    float tMax;
 	glm::vec3 orig;
 	glm::vec3 dir;
 };
