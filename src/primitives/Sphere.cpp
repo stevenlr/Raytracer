@@ -2,6 +2,8 @@
 
 bool Sphere::intersect(Ray ray, Hit &hit) const
 {
+    ray.transformInv(transform);
+
 	float tproj = glm::dot(ray.dir, -ray.orig);
 
 	glm::vec3 projPoint = ray(tproj);
@@ -31,8 +33,9 @@ bool Sphere::intersect(Ray ray, Hit &hit) const
 	hit.t = t;
 	hit.reached = true;
 	hit.material = material;
-    hit.pos = transform.apply(ray(t));
-    hit.normal = transform.getNormalMatrix() * glm::normalize(hit.pos);
+    hit.pos = ray(t);
+    hit.normal = glm::normalize(hit.pos);
+    hit.transform(transform);
 
 	return true;
 }

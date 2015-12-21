@@ -4,26 +4,30 @@
 
 using namespace std;
 
-void Scene::addObject(Object *o) {
+void Scene::addObject(Object *o)
+{
 	objects.push_back(o);
 }
 
-glm::vec3 Scene::launchRay(Ray ray) {
+void Scene::addLight(Light *l)
+{
+	lights.push_back(l);
+}
+
+glm::vec3 Scene::launchRay(Ray ray)
+{
  	bool reached = false;
  	Hit hit;
- 	Ray rayLocalMin(ray);
+ 	Ray rayMin(ray);
 
 	for (list<Object*>::iterator it = objects.begin(); it != objects.end(); ++it) {
 		Object *o = *it;
 
-		Ray rayLocal = ray;
-		rayLocal.transform(o->transform);
-
-		if (o->intersect(rayLocal, hit)) {
+		if (o->intersect(ray, hit)) {
 			reached = true;
-			rayLocalMin = rayLocal;
+			rayMin = ray;
 		}
 	}
 
-	return reached ? hit.shade(rayLocalMin) : glm::vec3(0);
+	return reached ? hit.shade(rayMin) : glm::vec3(0);
 }

@@ -13,6 +13,8 @@ class Ray;
 class Transform;
 class Plane;
 class Sphere;
+class Light;
+class DirectionalLight;
 
 #include "core/Material.h"
 #include "core/Hit.h"
@@ -24,5 +26,8 @@ class Sphere;
 
 #include "primitives/Sphere.h"
 #include "primitives/Plane.h"
+
+#include "lights/Light.h"
+#include "lights/DirectionalLight.h"
 
 #endif

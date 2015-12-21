@@ -7,10 +7,12 @@
 class Scene {
 public:
 	void addObject(Object *o);
+    void addLight(Light *l);
 	glm::vec3 launchRay(Ray ray);
 
 private:
 	std::list<Object *> objects;
+    std::list<Light *> lights;
 };
 
 #endif

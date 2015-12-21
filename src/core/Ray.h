@@ -7,7 +7,7 @@
 
 class Ray {
 public:
-	Ray(glm::vec3 orig, glm::vec3 dir, float tMin);
+	Ray(glm::vec3 orig, glm::vec3 dir, float tMin = 0);
 	Ray(const Ray & ray) = default;
 
 	glm::vec3 operator()(float t) const {
@@ -16,7 +16,7 @@ public:
 
 	Ray &operator=(const Ray & ray) = default;
 
-	void transform(const Transform &t);
+	void transformInv(const Transform &t);
 
 	float tMin;
 	glm::vec3 orig;
