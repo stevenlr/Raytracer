@@ -14,7 +14,7 @@ vec3 Hit::shade(const Ray &ray, const Light *light) const
     Ray lightRay = light->getRayFromHit(*this);
 
     glm::vec3 lightColor = light->getColor(pos);
-    float lambertFactor = max(-glm::dot(lightRay.dir, normal), 0.f);
+    float lambertFactor = max(glm::dot(lightRay.dir, normal), 0.f);
 
 	return material.diffuseColor * lightColor * lambertFactor;
 }

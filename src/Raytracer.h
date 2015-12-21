@@ -15,6 +15,7 @@ class Plane;
 class Sphere;
 class Light;
 class DirectionalLight;
+class PointLight;
 
 #include "core/Material.h"
 #include "core/Hit.h"
@@ -29,5 +30,6 @@ class DirectionalLight;
 
 #include "lights/Light.h"
 #include "lights/DirectionalLight.h"
+#include "lights/PointLight.h"
 
 #endif
