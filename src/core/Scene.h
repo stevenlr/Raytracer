@@ -10,6 +10,7 @@ public:
     void addLight(Light *l);
 	glm::vec3 getShadeFromRay(Ray ray) const;
     void setBackgroundColor(glm::vec3 color);
+    void setAmbientColor(glm::vec3 color);
 
 private:
     Hit launchRay(Ray ray) const;
@@ -18,6 +19,7 @@ private:
 	std::list<Object *> objects;
     std::list<Light *> lights;
     glm::vec3 backgroundColor;
+    glm::vec3 ambientColor;
 };
 
 #endif

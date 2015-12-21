@@ -20,21 +20,22 @@ int main(int argc, char *argv[]) {
 			70, width, height, 0.01f, 1000.0f);
 	Scene scene;
 
-    scene.setBackgroundColor(vec3(0, 0, 0));
+    scene.setBackgroundColor(vec3(0.5f));
+    scene.setAmbientColor(vec3(0, 0.02, 0.05f));
 
-	Object *sphere1 = new Sphere(1, Material(glm::vec3(1, 0, 0)));
-	Object *sphere2 = new Sphere(0.5f, Material(glm::vec3(1, 1, 0)));
-	Object *plane = new Plane(vec3(1, 0, 0.01), Material(glm::vec3(0.7f, 0.7f, 0.7f)));
+	Object *sphere1 = new Sphere(1, Material(glm::vec3(0.9, 0.3, 0.1)));
+	Object *sphere2 = new Sphere(0.5f, Material(glm::vec3(0.8, 0.8, 0.2)));
+	Object *plane = new Plane(vec3(0, 0, 1), Material(glm::vec3(0.7f, 0.7f, 0.7f)));
 
-	sphere2->transform.translate(1, 0, 0);
-	plane->transform.translate(-0.7f, 0, 0);
+	sphere2->transform.translate(1, -0.5, 0);
+	plane->transform.translate(0, 0, -1);
 
 	scene.addObject(sphere1);
 	scene.addObject(sphere2);
 	scene.addObject(plane);
 
-    Light *sun = new DirectionalLight(glm::normalize(vec3(-1, 1, -1)), glm::vec3(0.9, 0.5, 0.3) * 0.5f);
-    Light *point= new PointLight(vec3(0, -1, -1.5), vec3(0.2, 0.5, 0.9), vec3(0, 0, 1));
+    Light *sun = new DirectionalLight(glm::normalize(vec3(-1, 1, -1)), glm::vec3(1, 0.98, 0.95));
+    Light *point= new PointLight(vec3(-1, -1, -0.75), vec3(0, 0.5f, 0.6f), vec3(0, 0, 1));
 
     scene.addLight(sun);
     scene.addLight(point);

@@ -46,10 +46,17 @@ vec3 Scene::shade(const Ray &ray, const Hit &hit) const
         }
     }
 
+    color += ambientColor * hit.material.diffuseColor;
+
     return color;
 }
 
 void Scene::setBackgroundColor(vec3 color)
 {
     backgroundColor = color;
+}
+
+void Scene::setAmbientColor(vec3 color)
+{
+    ambientColor = color;
 }
