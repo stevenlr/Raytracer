@@ -13,7 +13,7 @@ public:
 	Hit(const Hit &h) = default;
 	Hit &operator=(const Hit &h) = default;
 
-	glm::vec3 shade(const Ray &ray) const;
+	glm::vec3 shade(const Ray &ray, const Light *light) const;
     void transform(const Transform &transform);
 
 	bool reached;

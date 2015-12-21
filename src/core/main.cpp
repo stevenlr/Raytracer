@@ -20,6 +20,8 @@ int main(int argc, char *argv[]) {
 			70, width, height, 0.01f, 1000.0f);
 	Scene scene;
 
+    scene.setBackgroundColor(vec3(0, 0, 0));
+
 	Object *sphere1 = new Sphere(1, Material(glm::vec3(1, 0, 0)));
 	Object *sphere2 = new Sphere(0.5f, Material(glm::vec3(1, 1, 0)));
 	Object *plane = new Plane(vec3(1, 0, 0), Material(glm::vec3(0, 1, 0)));
@@ -30,6 +32,10 @@ int main(int argc, char *argv[]) {
 	scene.addObject(sphere1);
 	scene.addObject(sphere2);
 	scene.addObject(plane);
+
+    Light *sun = new DirectionalLight(glm::normalize(vec3(-1, 1, -1)), glm::vec3(1, 0.95, 0.93));
+
+    scene.addLight(sun);
 
 	cimg_forXY(image, x, y) {
 		Ray ray = camera.computeRay(x, y);
