@@ -23,6 +23,7 @@ public:
 
 	const glm::mat4 &getTransform() const;
 	const glm::mat4 &getInverseTransform() const;
+    const glm::mat3 &getInverse3Transform() const;
 	const glm::mat3 &getNormalMatrix() const;
 
     glm::vec3 apply(glm::vec3 p) const;
@@ -34,6 +35,7 @@ private:
 	mutable bool isDirty = false;
 	glm::mat4 transform;
 	mutable glm::mat4 inverse;
+    mutable glm::mat3 inverse3;
 	mutable glm::mat3 normal;
 };
 

@@ -8,8 +8,10 @@ bool Sphere::intersect(Ray ray, Hit &hit) const
 
 	glm::vec3 projPoint = ray(tproj);
 	glm::vec3 minPoint = ray(ray.tMin);
+    glm::vec3 maxPoint = ray(ray.tMax);
 	float dist2Proj = glm::length2(projPoint);
 	float dist2Min = glm::length2(minPoint);
+    float dist2Max = glm::length2(maxPoint);
 
 	if ((dist2Min > radius2 && tproj < ray.tMin) || dist2Proj > radius2) {
 		return false;

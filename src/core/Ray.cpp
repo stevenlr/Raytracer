@@ -9,10 +9,5 @@ Ray::Ray(glm::vec3 orig, glm::vec3 dir, float tMin, float tMax) :
 void Ray::transformInv(const Transform &t)
 {
     orig = t.applyInv(orig);
-	dir = glm::mat3(t.getInverseTransform()) * dir;
-
-	float newLength = glm::length(dir);
-	tMin /= newLength;
-    tMax /= newLength;
-	dir /= newLength;
+	dir = glm::normalize(t.getInverse3Transform() * dir);
 }

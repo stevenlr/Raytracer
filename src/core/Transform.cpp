@@ -74,6 +74,12 @@ const mat4 &Transform::getInverseTransform() const
 	return inverse;
 }
 
+const glm::mat3 &Transform::getInverse3Transform() const
+{
+    updateCache();
+    return inverse3;
+}
+
 const mat3 &Transform::getNormalMatrix() const
 {
 	updateCache();
@@ -88,6 +94,7 @@ void Transform::updateCache() const
 
 	isDirty = false;
 	inverse = glm::inverse(transform);
+    inverse3 = glm::inverse(mat3(transform));
 	normal = glm::inverse(glm::transpose(mat3(transform)));
 }
 

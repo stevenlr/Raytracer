@@ -37,7 +37,7 @@ vec3 Scene::shade(const Ray &ray, const Hit &hit) const
     for (const Light *l : lights) {
         Ray lightRay = l->getRayFromHit(hit);
 
-        lightRay.tMin += 0.001f;
+        lightRay.tMin += numeric_limits<float>::epsilon() * 1000;
 
         Hit lightHit = launchRay(lightRay);
 

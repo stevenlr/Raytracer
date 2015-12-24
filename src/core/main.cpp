@@ -21,21 +21,22 @@ int main(int argc, char *argv[]) {
 	Scene scene;
 
     scene.setBackgroundColor(vec3(0.5f));
-    scene.setAmbientColor(vec3(0, 0.02, 0.05f));
+    scene.setAmbientColor(vec3(0.05f));
 
-	Object *sphere1 = new Sphere(1, Material(glm::vec3(0.9, 0.3, 0.1)));
+	Object *sphere1 = new Sphere(0.5f, Material(glm::vec3(0.9, 0.3, 0.1)));
 	Object *sphere2 = new Sphere(0.5f, Material(glm::vec3(0.8, 0.8, 0.2)));
 	Object *plane = new Plane(vec3(0, 0, 1), Material(glm::vec3(0.7f, 0.7f, 0.7f)));
 
-	sphere2->transform.translate(1, -0.5, 0);
+    sphere1->transform.translate(0, -0.5f, 0).scale(1, 1, 3);
+    sphere2->transform.translate(1, -0.5, 0).scale(3, 1, 1);
 	plane->transform.translate(0, 0, -1);
 
 	scene.addObject(sphere1);
 	scene.addObject(sphere2);
 	scene.addObject(plane);
 
-    Light *sun = new DirectionalLight(glm::normalize(vec3(-1, 1, -1)), glm::vec3(1, 0.98, 0.95));
-    Light *point= new PointLight(vec3(-1, -1, -0.75), vec3(0, 0.5f, 0.6f), vec3(0, 0, 1));
+    Light *sun = new DirectionalLight(glm::normalize(vec3(-1, 0, -1)), glm::vec3(1, 0.98, 0.95));
+    Light *point= new PointLight(vec3(-1, -1.5f, 0), vec3(0, 0.5f, 0.6f), vec3(0, 0, 1));
 
     scene.addLight(sun);
     scene.addLight(point);
