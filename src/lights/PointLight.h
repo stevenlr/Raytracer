@@ -17,4 +17,4 @@ public:
     glm::vec3 attenuation;
 };
 
-#endif#pragma once
+#endif
