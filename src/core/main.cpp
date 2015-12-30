@@ -9,16 +9,18 @@ using namespace glm;
 using namespace cimg_library;
 
 int main(int argc, char *argv[]) {
-	int width = 854;
-	int height = 480;
+	int width = 120;
+	int height = 120;
 	int x, y;
 
 	CImg<float> image(width, height, 1, 3);
+	image.fill(0);
 	CImgDisplay disp(image);
 
 	Camera camera(vec3(0, -5, 0), vec3(0, 0, 0), vec3(0, 0, 1),
 			70, width, height, 0.01f, 1000.0f);
 	Scene scene;
+	MeshModel model1("models/ship.obj");
 
     scene.setBackgroundColor(vec3(0.5f));
     scene.setAmbientColor(vec3(0.05f));
@@ -26,14 +28,17 @@ int main(int argc, char *argv[]) {
 	Object *sphere1 = new Sphere(0.5f, Material(glm::vec3(0.9, 0.3, 0.1)));
 	Object *sphere2 = new Sphere(0.5f, Material(glm::vec3(0.8, 0.8, 0.2)));
 	Object *plane = new Plane(vec3(0, 0, 1), Material(glm::vec3(0.7f, 0.7f, 0.7f)));
+	Object *mesh1 = new Mesh(model1, Material(glm::vec3(0.7f, 0.7f, 0.9f)));
 
     sphere1->transform.translate(0, -0.5f, 0).scale(1, 1, 3);
     sphere2->transform.translate(1, -0.5, 0).scale(3, 1, 1);
 	plane->transform.translate(0, 0, -1);
+	mesh1->transform.translate(1, -0.5, 0).rotate(.2f, .2f, .1f);
 
-	scene.addObject(sphere1);
-	scene.addObject(sphere2);
+	//scene.addObject(sphere1);
+	//scene.addObject(sphere2);
 	scene.addObject(plane);
+	scene.addObject(mesh1);
 
     Light *sun = new DirectionalLight(glm::normalize(vec3(-1, 0, -1)), glm::vec3(1, 0.98, 0.95));
     Light *point= new PointLight(vec3(-1, -1.5f, 0), vec3(0, 0.5f, 0.6f), vec3(0, 0, 1));
@@ -41,7 +46,7 @@ int main(int argc, char *argv[]) {
     scene.addLight(sun);
     scene.addLight(point);
 
-    int ssNbRays = 4;
+    int ssNbRays = 1;
     float ssOffsets[4][2] = {{0, 0}, {0.5, 0}, {0, 0.5}, {0.5, 0.5}};
 
 	cimg_forXY(image, x, y) {

@@ -13,6 +13,8 @@ class Ray;
 class Transform;
 class Plane;
 class Sphere;
+class Mesh;
+class MeshModel;
 class Light;
 class DirectionalLight;
 class PointLight;
@@ -24,9 +26,11 @@ class PointLight;
 #include "core/Camera.h"
 #include "core/Scene.h"
 #include "core/Ray.h"
+#include "core/MeshModel.h"
 
 #include "primitives/Sphere.h"
 #include "primitives/Plane.h"
+#include "primitives/Mesh.h"
 
 #include "lights/Light.h"
 #include "lights/DirectionalLight.h"
