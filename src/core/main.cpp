@@ -1,4 +1,8 @@
 #include <iostream>
+#include <thread>
+#include <vector>
+#include <mutex>
+#include <chrono>
 
 #include <CImg.h>
 
@@ -44,28 +48,60 @@ int main(int argc, char *argv[]) {
     int ssNbRays = 4;
     float ssOffsets[4][2] = {{0, 0}, {0.5, 0}, {0, 0.5}, {0.5, 0.5}};
 
-	cimg_forXY(image, x, y) {
-        glm::vec3 color(0);
+    int nbThreads = thread::hardware_concurrency();
+    int nextRow = 0;
+    mutex nextRowMutex;
+    vector<thread> threads(nbThreads);
 
-        for (int i = 0; i < ssNbRays; ++i) {
-		    Ray ray = camera.computeRay(x + ssOffsets[i][0], y + ssOffsets[i][1]);
-		    color += scene.getShadeFromRay(ray);
+    auto raytracingFunc = [&] () {
+        int y = 0;
+
+        while (true) {
+            nextRowMutex.lock();
+            y = nextRow++;
+            nextRowMutex.unlock();
+
+            if (y >= height) {
+                return;
+            }
+
+            for (int x = 0; x < width; ++x) {
+                glm::vec3 color(0);
+
+                for (int i = 0; i < ssNbRays; ++i) {
+		            Ray ray = camera.computeRay(x + ssOffsets[i][0], y + ssOffsets[i][1]);
+		            color += scene.getShadeFromRay(ray);
+                }
+
+                color /= ssNbRays;
+                color = glm::pow(color, vec3(0.45));
+                color = glm::clamp(color, vec3(0), vec3(1));
+
+		        image(x, y, 0) = color.r;
+		        image(x, y, 1) = color.g;
+		        image(x, y, 2) = color.b;
+
+		        if (x == 0 && y % 16 == 0) {
+			        disp.display(image);
+		        }
+            }
         }
+    };
 
-        color /= ssNbRays;
-        color = glm::pow(color, vec3(0.45));
-        color = glm::clamp(color, vec3(0), vec3(1));
+    cout << "Using " << nbThreads << " threads" << endl;
+    auto start = chrono::high_resolution_clock::now();
 
-		image(x, y, 0) = color.r;
-		image(x, y, 1) = color.g;
-		image(x, y, 2) = color.b;
+    for (thread &t : threads) {
+        new(&t) thread(raytracingFunc);
+    }
 
-		if (x == 0 && y % 16 == 0) {
-			disp.display(image);
-		}
-	}
+    for (thread &t : threads) {
+        t.join();
+    }
 
-	cout << "done" << endl;
+    auto ellapsed = chrono::high_resolution_clock::now() - start;
+	cout << "done in " << chrono::duration_cast<std::chrono::seconds>(ellapsed).count() << "s";
+    cout << " (" << chrono::duration_cast<std::chrono::milliseconds>(ellapsed).count() << "ms)" << endl << endl;
 
 	disp.close();
 	image.display();
