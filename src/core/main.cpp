@@ -3,6 +3,8 @@
 #include <vector>
 #include <mutex>
 #include <chrono>
+#include <functional>
+#include <random>
 
 #include <CImg.h>
 
@@ -55,9 +57,6 @@ int main(int argc, char *argv[]) {
     scene.addLight(sun);
     //scene.addLight(point);
 
-    int ssNbRays = 4;
-    float ssOffsets[4][2] = {{0, 0}, {0.5, 0}, {0, 0.5}, {0.5, 0.5}};
-
     int nbThreads = thread::hardware_concurrency();
     int nextRow = 0;
     mutex nextRowMutex;
@@ -65,6 +64,9 @@ int main(int argc, char *argv[]) {
 
     auto raytracingFunc = [&] () {
         int y = 0;
+        default_random_engine generator;
+        normal_distribution<float> rand(0, 0.05f);
+        auto jitterDice = bind(rand, generator);
 
         while (true) {
             nextRowMutex.lock();
@@ -78,12 +80,8 @@ int main(int argc, char *argv[]) {
             for (int x = 0; x < width; ++x) {
                 glm::vec3 color(0);
 
-                for (int i = 0; i < ssNbRays; ++i) {
-		            Ray ray = camera.computeRay(x + ssOffsets[i][0], y + ssOffsets[i][1]);
-		            color += scene.doPathTracing(ray);
-                }
-
-                color /= ssNbRays;
+		        Ray ray = camera.computeRay(x + jitterDice(), y + jitterDice());
+		        color = scene.doPathTracing(ray);
 
 		        image(x, y, 0) = color.r;
 		        image(x, y, 1) = color.g;
