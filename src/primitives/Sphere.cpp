@@ -1,5 +1,13 @@
 #include "Raytracer.h"
 
+Sphere::Sphere(float r, Material m) :
+		Object(m),
+		radius(r), radius2(r * r)
+{
+	aabb.pos = glm::vec3(-radius);
+	aabb.pos2 = glm::vec3(radius);
+}
+
 bool Sphere::intersect(Ray ray, Hit &hit) const
 {
     ray.transformInv(transform);

@@ -6,9 +6,11 @@
 
 class Material;
 class Hit;
+class AABB;
 class Object;
 class Camera;
 class Scene;
+class Octree;
 class Ray;
 class Transform;
 class Plane;
@@ -23,10 +25,12 @@ class PointLight;
 #include "core/Material.h"
 #include "core/Hit.h"
 #include "core/Transform.h"
+#include "core/AABB.h"
 #include "core/Object.h"
 #include "core/Camera.h"
 #include "core/Scene.h"
 #include "core/Ray.h"
+#include "core/Octree.h"
 
 #include "primitives/Sphere.h"
 #include "primitives/Plane.h"
