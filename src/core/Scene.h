@@ -8,17 +8,14 @@ class Scene {
 public:
 	void addObject(Object *o);
     void addLight(Light *l);
-	glm::vec3 getShadeFromRay(Ray ray) const;
-    void setBackgroundColor(glm::vec3 color);
+    glm::vec3 doPathTracing(Ray ray) const;
     void setAmbientColor(glm::vec3 color);
 
 private:
     Hit launchRay(Ray ray) const;
-    glm::vec3 shade(const Ray &ray, const Hit &hit) const;
 
 	std::list<Object *> objects;
     std::list<Light *> lights;
-    glm::vec3 backgroundColor;
     glm::vec3 ambientColor;
 };
 

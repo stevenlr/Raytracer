@@ -5,10 +5,7 @@
 
 class Sphere : public Object {
 public:
-	Sphere(float r, Material m) :
-		Object(m),
-		radius(r), radius2(r * r)
-	{}
+	Sphere(float r, Material m);
 
 	bool intersect(Ray ray, Hit &hit) const override;
 
