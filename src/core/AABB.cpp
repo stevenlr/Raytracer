@@ -17,9 +17,9 @@ bool AABB::intersect(Ray ray, Hit &hit) const
 		}
 	}
 
-	float min = glm::min(far);
+	float min = glm::min(far.x, glm::min(far.y, far.z))
 
-	hit.reached = glm::max(near) < min && tMin < min;
+	hit.reached = glm::max(near.x, glm::max(near.y, near.z)) < min && tMin < min;
 
 	return hit.reached;
 }
