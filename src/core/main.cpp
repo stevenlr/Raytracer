@@ -3,8 +3,6 @@
 #include <vector>
 #include <mutex>
 #include <chrono>
-#include <functional>
-#include <random>
 
 #include <CImg.h>
 
@@ -15,10 +13,12 @@ using namespace glm;
 using namespace cimg_library;
 
 int main(int argc, char *argv[]) {
-	int width = 400;
-	int height = 300;
-	int x, y;
+	const int width = 854;
+	const int height = 480;
+	const int nbIter = 1000;
+    const int ssNbRays = 4;
 
+	int x, y;
 	CImg<float> image(width, height, 1, 3);
     CImg<float> finalImage(width, height, 1, 3);
 	CImgDisplay disp(image);
@@ -57,16 +57,14 @@ int main(int argc, char *argv[]) {
     scene.addLight(sun);
     //scene.addLight(point);
 
-    int nbThreads = thread::hardware_concurrency();
+    const int nbThreads = thread::hardware_concurrency();
     int nextRow = 0;
     mutex nextRowMutex;
     vector<thread> threads(nbThreads);
+    const float ssOffsets[4][2] = {{0, 0}, {0.5, 0}, {0, 0.5}, {0.5, 0.5}};
 
     auto raytracingFunc = [&] () {
         int y = 0;
-        default_random_engine generator;
-        normal_distribution<float> rand(0, 0.05f);
-        auto jitterDice = bind(rand, generator);
 
         while (true) {
             nextRowMutex.lock();
@@ -80,8 +78,12 @@ int main(int argc, char *argv[]) {
             for (int x = 0; x < width; ++x) {
                 glm::vec3 color(0);
 
-		        Ray ray = camera.computeRay(x + jitterDice(), y + jitterDice());
-		        color = scene.doPathTracing(ray);
+                for (int i = 0; i < ssNbRays; ++i) {
+			        Ray ray = camera.computeRay(x + ssOffsets[i][0], y + ssOffsets[i][1]);
+			        color += scene.doPathTracing(ray);
+		    	}
+
+		    	color /= ssNbRays;
 
 		        image(x, y, 0) = color.r;
 		        image(x, y, 1) = color.g;
@@ -93,7 +95,9 @@ int main(int argc, char *argv[]) {
     cout << "Using " << nbThreads << " threads" << endl;
     auto start = chrono::high_resolution_clock::now();
 
-    for (int i = 0; i < 1000; ++i) {
+    const int nbIterEfective = nbIter / ssNbRays;
+
+    for (int i = 0; i < nbIterEfective; ++i) {
         nextRow = 0;
 
         for (thread &t : threads) {
