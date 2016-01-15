@@ -3,11 +3,12 @@
 
 #include "Raytracer.h"
 
-class Light {
+class Light
+{
 public:
-    virtual ~Light() {}
-    virtual Ray getRayFromHit(const Hit &hit) const = 0;
-    virtual glm::vec3 getColor(glm::vec3 hitPos) const = 0;
+	virtual ~Light() {}
+	virtual Ray getRayFromHit(const Hit &hit) const = 0;
+	virtual glm::vec3 getColor(glm::vec3 hitPos) const = 0;
 };
 
 #endif

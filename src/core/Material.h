@@ -3,7 +3,8 @@
 
 #include <glm/glm.hpp>
 
-class Material {
+class Material
+{
 public:
 	Material() = default;
 	Material(glm::vec3 diffuseColor) :

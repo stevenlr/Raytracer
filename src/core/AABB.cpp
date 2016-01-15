@@ -27,14 +27,14 @@ bool AABB::intersect(Ray ray, Hit &hit) const
 bool AABB::intersect(AABB aabb) const
 {
 	return aabb.pos.x 			<= pos2.x - 1
-		and aabb.pos2.x - 1		>= pos.x
-		and aabb.pos.y			<= pos2.y - 1
-		and aabb.pos2.y - 1		>= pos.y
-		and aabb.pos.z			<= pos2.z - 1
-		and aabb.pos2.z - 1		>= pos.z;
+	       and aabb.pos2.x - 1		>= pos.x
+	       and aabb.pos.y			<= pos2.y - 1
+	       and aabb.pos2.y - 1		>= pos.y
+	       and aabb.pos.z			<= pos2.z - 1
+	       and aabb.pos2.z - 1		>= pos.z;
 	/*todo Replace box2 by pos2, box by pos + add z coord
 	return	box2.x				<= box1.x + box1.w -1
-		and box2.x + box2.w -1	>= box1.x 
+		and box2.x + box2.w -1	>= box1.x
 		and box2.y 				<= box1.y + box1.h -1
 		and box2.y + box2.h -1	>= box1.y;*/
 }

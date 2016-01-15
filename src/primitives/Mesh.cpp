@@ -1,7 +1,7 @@
 #include "Raytracer.h"
 
 static bool intersectTriangle(const Ray& ray, const glm::vec3& v0, const glm::vec3& v1,
-					   const glm::vec3& v2, float& distHit, float& alpha, float& beta)
+                              const glm::vec3& v2, float& distHit, float& alpha, float& beta)
 {
 	glm::mat3 M(v1 - v0, v2 - v0, -ray.dir);
 	if (glm::determinant(M) == 0)
@@ -40,7 +40,7 @@ bool Mesh::intersect(Ray ray, Hit &hit) const
 		float alpha;
 		float beta;
 		if (intersectTriangle(ray, v0, v1, v2, dist, alpha, beta)
-			&& dist < distHit && dist >= ray.tMin && dist <= hit.t) {
+		        && dist < distHit && dist >= ray.tMin && dist <= hit.t) {
 			distHit = dist;
 			reached = true;
 

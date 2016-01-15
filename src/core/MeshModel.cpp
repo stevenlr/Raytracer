@@ -8,7 +8,7 @@ using namespace std;
 
 // from https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Load_OBJ
 static void load_obj(const std::string& filename, vector<glm::vec3> &vertices,
-					 vector<glm::vec3> &normals, vector<unsigned int> &elements, vector<unsigned int> &normal_elements)
+                     vector<glm::vec3> &normals, vector<unsigned int> &elements, vector<unsigned int> &normal_elements)
 {
 	std::ifstream in(filename, std::ios::in);
 	if (!in) {
@@ -17,8 +17,7 @@ static void load_obj(const std::string& filename, vector<glm::vec3> &vertices,
 	}
 
 	std::string line;
-	while (std::getline(in, line))
-	{
+	while (std::getline(in, line)) {
 		if (line.substr(0, 2) == "v ") {
 			std::istringstream s(line.substr(2));
 			glm::vec3 v;
@@ -71,7 +70,8 @@ static void load_obj(const std::string& filename, vector<glm::vec3> &vertices,
 	}
 }
 
-MeshModel::MeshModel(const std::string& filename) {
+MeshModel::MeshModel(const std::string& filename)
+{
 	load_obj(filename, vertices, normals, elements, normal_elements);
 	min = glm::vec3(std::numeric_limits<float>::max());
 	max = glm::vec3(std::numeric_limits<float>::min());

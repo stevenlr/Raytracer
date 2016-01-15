@@ -76,8 +76,8 @@ const mat4 &Transform::getInverseTransform() const
 
 const glm::mat3 &Transform::getInverse3Transform() const
 {
-    updateCache();
-    return inverse3;
+	updateCache();
+	return inverse3;
 }
 
 const mat3 &Transform::getNormalMatrix() const
@@ -94,24 +94,24 @@ void Transform::updateCache() const
 
 	isDirty = false;
 	inverse = glm::inverse(transform);
-    inverse3 = glm::inverse(mat3(transform));
+	inverse3 = glm::inverse(mat3(transform));
 	normal = glm::inverse(glm::transpose(mat3(transform)));
 }
 
 vec3 Transform::apply(vec3 p) const
 {
-    updateCache();
+	updateCache();
 
-    glm::vec4 h(p, 1);
-    h = transform * h;
-    return glm::vec3(h) / h.w;
+	glm::vec4 h(p, 1);
+	h = transform * h;
+	return glm::vec3(h) / h.w;
 }
 
 vec3 Transform::applyInv(vec3 p) const
 {
-    updateCache();
+	updateCache();
 
-    glm::vec4 h(p, 1);
-    h = inverse * h;
-    return glm::vec3(h) / h.w;
+	glm::vec4 h(p, 1);
+	h = inverse * h;
+	return glm::vec3(h) / h.w;
 }

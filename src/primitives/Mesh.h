@@ -3,7 +3,8 @@
 
 #include "Raytracer.h"
 
-class Mesh : public Object {
+class Mesh : public Object
+{
 public:
 	Mesh(const MeshModel& model, Material m) :
 		Object(m),
@@ -12,7 +13,7 @@ public:
 
 	bool intersect(Ray ray, Hit &hit) const override;
 
-    const MeshModel& model;
+	const MeshModel& model;
 };
 
 #endif

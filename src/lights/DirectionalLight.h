@@ -3,17 +3,18 @@
 
 #include "Raytracer.h"
 
-class DirectionalLight : public Light {
+class DirectionalLight : public Light
+{
 public:
-    DirectionalLight(glm::vec3 dir, glm::vec3 color) :
-           dir(glm::normalize(dir)), color(color)
-    {}
+	DirectionalLight(glm::vec3 dir, glm::vec3 color) :
+		dir(glm::normalize(dir)), color(color)
+	{}
 
-    Ray getRayFromHit(const Hit &hit) const override;
-    glm::vec3 getColor(glm::vec3 hitPos) const override;
+	Ray getRayFromHit(const Hit &hit) const override;
+	glm::vec3 getColor(glm::vec3 hitPos) const override;
 
-    glm::vec3 dir;
-    glm::vec3 color;
+	glm::vec3 dir;
+	glm::vec3 color;
 };
 
 #endif

@@ -3,18 +3,19 @@
 
 #include "Raytracer.h"
 
-class PointLight : public Light {
+class PointLight : public Light
+{
 public:
-    PointLight(glm::vec3 pos, glm::vec3 color, glm::vec3 attenuation) :
-           pos(pos), color(color), attenuation(attenuation)
-    {}
+	PointLight(glm::vec3 pos, glm::vec3 color, glm::vec3 attenuation) :
+		pos(pos), color(color), attenuation(attenuation)
+	{}
 
-    Ray getRayFromHit(const Hit &hit) const override;
-    glm::vec3 getColor(glm::vec3 hitPos) const override;
+	Ray getRayFromHit(const Hit &hit) const override;
+	glm::vec3 getColor(glm::vec3 hitPos) const override;
 
-    glm::vec3 pos;
-    glm::vec3 color;
-    glm::vec3 attenuation;
+	glm::vec3 pos;
+	glm::vec3 color;
+	glm::vec3 attenuation;
 };
 
 #endif

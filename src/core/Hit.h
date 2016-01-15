@@ -3,7 +3,8 @@
 
 #include "Raytracer.h"
 
-class Hit {
+class Hit
+{
 public:
 	Hit();
 	Hit(Material material, glm::vec3 normal, float t = std::numeric_limits<float>::max()) :
@@ -14,13 +15,13 @@ public:
 	Hit &operator=(const Hit &h) = default;
 
 	glm::vec3 shade(const Ray &ray, const Light *light) const;
-    void transform(const Transform &transform);
+	void transform(const Transform &transform);
 
 	bool reached = false;
 	float t;
 	Material material;
 	glm::vec3 normal;
-    glm::vec3 pos;
+	glm::vec3 pos;
 };
 
 #endif

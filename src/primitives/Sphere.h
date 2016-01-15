@@ -3,7 +3,8 @@
 
 #include "Raytracer.h"
 
-class Sphere : public Object {
+class Sphere : public Object
+{
 public:
 	Sphere(float r, Material m);
 

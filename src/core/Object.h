@@ -3,7 +3,8 @@
 
 #include "Raytracer.h"
 
-class Object {
+class Object
+{
 public:
 	Object(Material material) :
 		material(material)
@@ -23,8 +24,8 @@ public:
 
 			for (int i = 0; i < 8; ++i) {
 				pos[i] = glm::vec3(	(i % 2),
-									((i / 2) % 2),
-									(i < 4 ? 0 : 1));
+				                    ((i / 2) % 2),
+				                    (i < 4 ? 0 : 1));
 				pos[i] = pos[i] * whd + aabb.pos;
 				pos[i] = transform.apply(pos[i]);
 			}
@@ -34,7 +35,7 @@ public:
 				aabb.pos2 = glm::max(aabb.pos2, pos[i]);
 			}
 		}
-		
+
 		return aabb;
 	}
 

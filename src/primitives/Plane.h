@@ -3,7 +3,8 @@
 
 #include "Raytracer.h"
 
-class Plane : public Object {
+class Plane : public Object
+{
 public:
 	Plane(glm::vec3 normal, Material m) :
 		Object(m),

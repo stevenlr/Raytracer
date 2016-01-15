@@ -5,7 +5,7 @@
 using namespace std;
 
 Octree::Octree(AABB &box, list<Object*> &objects, Octree *parent)  :
-		boundingBox(box), objects(objects), parent(parent)
+	boundingBox(box), objects(objects), parent(parent)
 {
 	if (objects.size() <= MIN_ENTITY)
 		return;
@@ -17,8 +17,8 @@ Octree::Octree(AABB &box, list<Object*> &objects, Octree *parent)  :
 
 	for (int i = 0; i < 8; ++i) {
 		glm::vec3 pos(	(i % 2) * dist.x,
-						((i / 2) % 2) * dist.y,
-						(i < 4 ? 0 : 1) * dist.z);
+		                ((i / 2) % 2) * dist.y,
+		                (i < 4 ? 0 : 1) * dist.z);
 		pos += boundingBox.pos;
 
 		glm::vec3 pos2(pos + dist);
@@ -65,7 +65,7 @@ Octree::Octree(AABB &box, list<Object*> &objects, Octree *parent)  :
 
 bool Octree::intersect(Ray ray, Hit &hit) const
 {
-	Hit hitTmp = hit;	
+	Hit hitTmp = hit;
 
 	boundingBox.intersect(ray, hit);
 

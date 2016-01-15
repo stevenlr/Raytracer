@@ -6,14 +6,14 @@ using namespace std;
 
 bool Plane::intersect(Ray ray, Hit &hit) const
 {
-    ray.transformInv(transform);
+	ray.transformInv(transform);
 
 	float dotDir = glm::dot(ray.dir, normal);
 	float dotOrig = glm::dot(ray.orig, normal);
 
-    if (abs(dotDir) < numeric_limits<float>::epsilon()) {
-        return false;
-    }
+	if (abs(dotDir) < numeric_limits<float>::epsilon()) {
+		return false;
+	}
 
 	float t = -dotOrig / dotDir;
 
@@ -25,8 +25,8 @@ bool Plane::intersect(Ray ray, Hit &hit) const
 	hit.reached = true;
 	hit.material = material;
 	hit.normal = normal;
-    hit.pos = ray(t);
-    hit.transform(transform);
-	
+	hit.pos = ray(t);
+	hit.transform(transform);
+
 	return true;
 }

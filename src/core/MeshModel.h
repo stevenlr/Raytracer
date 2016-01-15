@@ -7,7 +7,8 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-class MeshModel {
+class MeshModel
+{
 public:
 	MeshModel(const std::string& filename);
 

@@ -8,7 +8,8 @@
 #define MAX_SIZE 1
 #define MIN_ENTITY 1
 
-class Octree {
+class Octree
+{
 public:
 	Octree(AABB &box, std::list<Object*> &objects, Octree *parent);
 

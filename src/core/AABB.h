@@ -3,7 +3,8 @@
 
 #include "Raytracer.h"
 
-class AABB {
+class AABB
+{
 public:
 	AABB() = default;
 	AABB(glm::vec3 &pos, glm::vec3 &pos2) :
