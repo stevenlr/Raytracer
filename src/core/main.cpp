@@ -15,8 +15,8 @@ using namespace glm;
 using namespace cimg_library;
 
 int main(int argc, char *argv[]) {
-	int width = 854;
-	int height = 480;
+	int width = 400;
+	int height = 300;
 	int x, y;
 
 	CImg<float> image(width, height, 1, 3);
@@ -93,7 +93,7 @@ int main(int argc, char *argv[]) {
     cout << "Using " << nbThreads << " threads" << endl;
     auto start = chrono::high_resolution_clock::now();
 
-    for (int i = 0; i < 100; ++i) {
+    for (int i = 0; i < 1000; ++i) {
         nextRow = 0;
 
         for (thread &t : threads) {
@@ -107,9 +107,9 @@ int main(int argc, char *argv[]) {
         cout << i << endl;
 
         cimg_forXY(finalImage, x, y) {
-            finalImage(x, y, 0) = (finalImage(x, y, 0) * (i + 1.0f) + image(x, y, 0)) / (i + 2.0f);
-            finalImage(x, y, 1) = (finalImage(x, y, 1) * (i + 1.0f) + image(x, y, 1)) / (i + 2.0f);
-            finalImage(x, y, 2) = (finalImage(x, y, 2) * (i + 1.0f) + image(x, y, 2)) / (i + 2.0f);
+            finalImage(x, y, 0) = (finalImage(x, y, 0) * i + image(x, y, 0)) / (i + 1.0f);
+            finalImage(x, y, 1) = (finalImage(x, y, 1) * i + image(x, y, 1)) / (i + 1.0f);
+            finalImage(x, y, 2) = (finalImage(x, y, 2) * i + image(x, y, 2)) / (i + 1.0f);
         }
 
         disp.display(finalImage);

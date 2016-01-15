@@ -76,7 +76,7 @@ vec3 Scene::doPathTracing(Ray ray) const
             Hit lightHit = launchRay(lightRay);
 
             if (!lightHit.reached) {
-                accumulatedColor += l->getColor(hit.pos) * max(glm::dot(hit.normal, lightRay.dir), 0.0f) * mask;
+                accumulatedColor += l->getColor(hit.pos) * glm::max(glm::dot(hit.normal, lightRay.dir), 0.0f) * mask;
             }
         }
 
