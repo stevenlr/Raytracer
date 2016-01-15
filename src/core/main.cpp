@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 	Camera camera(vec3(0, -5, 0), vec3(0, 0, 0), vec3(0, 0, 1),
 			70, width, height, 0.01f, 1000.0f);
 	Scene scene;
-	MeshModel model1("models/ship.obj");
+	MeshModel model1("models/asteroid.obj");
 
 	scene.setAmbientColor(vec3(0.05f, 0.05f, 0.1f));
 
@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
 	Object *floor = new Plane(vec3(0, 0, 1), Material(glm::vec3(0.7f)));
 	Object *wallLeft = new Disc(vec3(1, 0, 0), 4, Material(glm::pow(glm::vec3(1, 0.5f, 0.5f), vec3(2.2))));
 	Object *wallRight = new Disc(vec3(-1, 0, 0), 4, Material(glm::pow(glm::vec3(0.5f, 0.5f, 1), vec3(2.2))));
-	Object *mesh1 = new Mesh(model1, Material(glm::vec3(0.7f, 0.7f, 0.9f)));
+	Object *mesh = new Mesh(model1, Material(glm::vec3(0.7f, 0.7f, 0.9f)));
 
     sphere1->transform.translate(-1, -0.5, 0).scale(1, 1, 3);
     sphere2->transform.translate(1, -2, -0.75);
@@ -45,6 +45,7 @@ int main(int argc, char *argv[]) {
     wallBack->transform.translate(0, 2, 0);
     wallLeft->transform.translate(-2, 0, 0);
     wallRight->transform.translate(2, 0, 0);
+    mesh->transform.translate(-1, 1, -0.75);
 
 	scene.addObject(sphere1);
 	scene.addObject(sphere2);
@@ -52,6 +53,7 @@ int main(int argc, char *argv[]) {
     scene.addObject(wallBack);
     scene.addObject(wallLeft);
     scene.addObject(wallRight);
+    scene.addObject(mesh);
 
     Light *sun = new DirectionalLight(glm::normalize(vec3(-1, 0.3f, -1)), glm::vec3(1, 0.98, 0.95));
     Light *point = new PointLight(vec3(-1, -1.5f, 0), vec3(0, 0.5f, 0.6f), vec3(0, 0, 1));
