@@ -9,8 +9,8 @@ using namespace glm;
 using namespace cimg_library;
 
 int main(int argc, char *argv[]) {
-	int width = 120;
-	int height = 120;
+	int width = 840;
+	int height = 680;
 	int x, y;
 
 	CImg<float> image(width, height, 1, 3);
@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
     sphere1->transform.translate(0, -0.5f, 0).scale(1, 1, 3);
     sphere2->transform.translate(1, -0.5, 0).scale(3, 1, 1);
 	plane->transform.translate(0, 0, -1);
-	mesh1->transform.translate(1, -0.5, 0).rotate(.2f, .2f, .1f);
+	mesh1->transform.translate(1, .5, 0).rotate(.2f, .8f, .1f);
 
 	//scene.addObject(sphere1);
 	//scene.addObject(sphere2);
