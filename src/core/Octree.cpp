@@ -1,5 +1,7 @@
 #include "Octree.h"
 
+#include <limits>
+
 Octree::Octree(AABB &box, list<Object*> &objects, Octree *parent)  :
 		boundingBox(box), objects(objects), parent(parent)
 {
@@ -57,4 +59,32 @@ Octree::Octree(AABB &box, list<Object*> &objects, Octree *parent)  :
 	for (int i = 0; i < 8; ++i) {
 		childs[i] = new Octree(boundingBoxes[i], lists[i], this);
 	}
+}
+
+bool Octree::intersect(Ray ray, Hit &hit) const
+{
+	hitTmp = hit;	
+
+	boundingBox.intersect(ray, hit);
+
+	if (hitTmp.reached) {
+		for (auto it = objects.begin(); it != objects.end(); ++it) {
+			objects->intersect(ray, hit);
+		}
+
+		hitTmp = hit;
+		if (objects->size() > MIN_ENTITY) {
+			for (int i = 0; i < 8; ++i) {
+				childs[i]->intersect(ray, hitTmp);
+			}
+		}
+
+		if (hitTmp.reached and hit.t > hitTmp.t) {
+			hit = hitTmp
+		}
+	} else {
+		hit.reached = false;
+	}
+
+	return hit.reached;
 }
