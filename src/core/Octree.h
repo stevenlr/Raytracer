@@ -1,5 +1,5 @@
-#ifndef PRIMITIVES_OCTREE_H_
-#define PRIMITIVES_OCTREE_H_
+#ifndef CORE_OCTREE_H_
+#define CORE_OCTREE_H_
 
 #include "Raytracer.h"
 

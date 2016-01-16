@@ -1,5 +1,5 @@
-#ifndef PRIMITIVES_AABB_H_
-#define PRIMITIVES_AABB_H_
+#ifndef CORE_AABB_H_
+#define CORE_AABB_H_
 
 #include "Raytracer.h"
 
