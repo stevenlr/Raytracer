@@ -26,7 +26,7 @@ Octree::Octree(AABB &box, list<Object*> &objects, Octree *parent)  :
 		boundingBoxes[i] = AABB(pos, pos2);
 	}
 
-	int nbStayInList = 0;
+	unsigned int nbStayInList = 0;
 	Object *o;
 	AABB AABBo;
 
@@ -81,7 +81,7 @@ bool Octree::intersect(Ray ray, Hit &hit) const
 			}
 		}
 
-		if (hitTmp.reached and hit.t > hitTmp.t) {
+		if (hitTmp.reached && hit.t > hitTmp.t) {
 			hit = hitTmp;
 		}
 	} else {

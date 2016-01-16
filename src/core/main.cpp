@@ -14,12 +14,11 @@ using namespace cimg_library;
 
 int main(int argc, char *argv[])
 {
-	const int width = 854;
-	const int height = 480;
-	const int nbIter = 1000;
+	const int width = 400;
+	const int height = 300;
+	const int nbIter = 100;
 	const int ssNbRays = 4;
 
-	int x, y;
 	CImg<float> image(width, height, 1, 3);
 	CImg<float> finalImage(width, height, 1, 3);
 	CImgDisplay disp(image);
@@ -36,8 +35,8 @@ int main(int argc, char *argv[])
 
 	Object *wallBack = new Disc(vec3(0, -1, 0), 4, Material(glm::vec3(0.7f)));
 	Object *floor = new Plane(vec3(0, 0, 1), Material(glm::vec3(0.7f)));
-	Object *wallLeft = new Disc(vec3(1, 0, 0), 4, Material(glm::pow(glm::vec3(1, 0.5f, 0.5f), vec3(2.2))));
-	Object *wallRight = new Disc(vec3(-1, 0, 0), 4, Material(glm::pow(glm::vec3(0.5f, 0.5f, 1), vec3(2.2))));
+	Object *wallLeft = new Disc(vec3(1, 0, 0), 4, Material(glm::pow(glm::vec3(1, 0.5f, 0.5f), vec3(2.2f))));
+	Object *wallRight = new Disc(vec3(-1, 0, 0), 4, Material(glm::pow(glm::vec3(0.5f, 0.5f, 1), vec3(2.2f))));
 	Object *mesh = new Mesh(model1, Material(glm::vec3(0.7f, 0.7f, 0.9f)));
 
 	sphere1->transform.translate(-1, -0.5, 0).scale(1, 1, 3);
@@ -54,7 +53,7 @@ int main(int argc, char *argv[])
 	scene.addObject(wallBack);
 	scene.addObject(wallLeft);
 	scene.addObject(wallRight);
-	scene.addObject(mesh);
+	//scene.addObject(mesh);
 
 	Light *sun = new DirectionalLight(glm::normalize(vec3(-1, 0.3f, -1)), glm::vec3(1, 0.98, 0.95));
 	Light *point = new PointLight(vec3(-1, -1.5f, 0), vec3(0, 0.5f, 0.6f), vec3(0, 0, 1));
@@ -131,7 +130,7 @@ int main(int argc, char *argv[])
 		color.g = finalImage(x, y, 1);
 		color.b = finalImage(x, y, 2);
 
-		color = glm::pow(color, vec3(0.45));
+		color = glm::pow(color, vec3(0.45f));
 		//color = glm::clamp(color, vec3(0), vec3(1));
 
 		finalImage(x, y, 0) = color.r;
