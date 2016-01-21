@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 {
 	const int width = 400;
 	const int height = 300;
-	const int nbIter = 100;
+	const int nbIter = 1000;
 	const int ssNbRays = 4;
 
 	CImg<float> image(width, height, 1, 3);
@@ -28,15 +28,15 @@ int main(int argc, char *argv[])
 	Scene scene;
 	MeshModel model1("models/asteroid.obj");
 
-	scene.setAmbientColor(vec3(0.05f, 0.05f, 0.1f));
+	scene.setAmbientColor(glm::pow(vec3(0.05f, 0.05f, 0.1f), glm::vec3(1.f)));
 
 	Object *sphere1 = new Sphere(0.5f, Material(glm::vec3(1)));
 	Object *sphere2 = new Sphere(0.25f, Material(glm::vec3(1)));
 
-	Object *wallBack = new Disc(vec3(0, -1, 0), 4, Material(glm::vec3(0.7f)));
-	Object *floor = new Plane(vec3(0, 0, 1), Material(glm::vec3(0.7f)));
-	Object *wallLeft = new Disc(vec3(1, 0, 0), 4, Material(glm::pow(glm::vec3(1, 0.5f, 0.5f), vec3(2.2f))));
-	Object *wallRight = new Disc(vec3(-1, 0, 0), 4, Material(glm::pow(glm::vec3(0.5f, 0.5f, 1), vec3(2.2f))));
+	Object *wallBack = new Disc(vec3(0, -1, 0), 4, Material(glm::pow(glm::vec3(0.7f), vec3(1.f))));
+	Object *floor = new Plane(vec3(0, 0, 1), Material(glm::pow(glm::vec3(0.7f), vec3(1.f))));
+	Object *wallLeft = new Disc(vec3(1, 0, 0), 4, Material(glm::pow(glm::vec3(1, 0.2f, 0.2f), vec3(1.f))));
+	Object *wallRight = new Disc(vec3(-1, 0, 0), 4, Material(glm::pow(glm::vec3(0.5f, 0.5f, 1), vec3(1.f))));
 	Object *mesh = new Mesh(model1, Material(glm::vec3(0.7f, 0.7f, 0.9f)));
 
 	sphere1->transform.translate(-1, -0.5, 0).scale(1, 1, 3);
@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 	scene.addObject(wallRight);
 	//scene.addObject(mesh);
 
-	Light *sun = new DirectionalLight(glm::normalize(vec3(-1, 0.3f, -1)), glm::vec3(1, 0.98, 0.95));
+	Light *sun = new DirectionalLight(glm::normalize(vec3(-1, 0.3f, -1)), glm::pow(glm::vec3(1, 0.98, 0.95), glm::vec3(1.f)));
 	Light *point = new PointLight(vec3(-1, -1.5f, 0), vec3(0, 0.5f, 0.6f), vec3(0, 0, 1));
 
 	scene.addLight(sun);
@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
 		color.b = finalImage(x, y, 2);
 
 		color = glm::pow(color, vec3(0.45f));
-		//color = glm::clamp(color, vec3(0), vec3(1));
+		color = glm::clamp(color, vec3(0), vec3(1));
 
 		finalImage(x, y, 0) = color.r;
 		finalImage(x, y, 1) = color.g;

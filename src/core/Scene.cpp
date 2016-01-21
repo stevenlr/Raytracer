@@ -1,5 +1,6 @@
 #include "Raytracer.h"
 
+#include <iostream>
 #include <random>
 #include <functional>
 
@@ -22,24 +23,34 @@ namespace
 	static uniform_real_distribution<float> rand(0, 1);
 	static auto dice = bind(rand, generator);
 
-	vec3 cosineDirection(vec3 normal)
+	void makeBase(vec3 normal, vec3 *b1, vec3 *b2)
 	{
-		vec3 b1, b2;
-
 		if (fabsf(normal.x) > fabsf(normal.y)) {
 			float invLen = 1.0f / sqrtf(normal.x * normal.x + normal.z * normal.z);
-			b1 = vec3(-normal.z * invLen, 0.0f, normal.x * invLen);
+			*b1 = vec3(-normal.z * invLen, 0.0f, normal.x * invLen);
 		} else {
 			float invLen = 1.0f / sqrtf(normal.y * normal.y + normal.z * normal.z);
-			b1 = vec3(0.0f, normal.z * invLen, -normal.y * invLen);
+			*b1 = vec3(0.0f, normal.z * invLen, -normal.y * invLen);
 		}
 
-		b2 = glm::cross(normal, b1);
+		*b2 = glm::cross(normal, *b1);
+	}
 
+	vec3 cosineDirection(vec3 normal, float *probability)
+	{
+		vec3 b1, b2;
 		float a = dice() * 2 * PI_F;
 		float b = dice();
 
-		return normal * sqrt(1 - b) + sqrt(b) * (cos(a) * b1 + sin(a) * b2);
+		makeBase(normal, &b1, &b2);
+		*probability = sqrtf(1 - b) * INV_PI_F;
+
+		return normal * sqrtf(1 - b) + sqrtf(b) * (cosf(a) * b1 + sinf(a) * b2);
+	}
+
+	float lambertBrdf(vec3 in, vec3 out, vec3 normal)
+	{
+		return INV_PI_F;
 	}
 }
 
@@ -50,22 +61,26 @@ vec3 Scene::doPathTracing(Ray ray) const
 	const float russianRoulette = 0.75f;
 	int bounce = 0;
 	const float epsilon = numeric_limits<float>::epsilon() * 100;
+	float probabilityBounce = 1;
 
 	do {
 		Hit hit = launchRay(ray);
+		vec3 accumulatedNow(0);
 
 		if (!hit.reached) {
 			return (bounce == 0) ? ambientColor : vec3(0);
 		}
 
-		mask *= hit.material.diffuseColor;
-
 		// ambient
-		Ray ambientRay(hit.pos, cosineDirection(hit.normal), epsilon);
+		float probabilityAmbient;
+		Ray ambientRay(hit.pos, cosineDirection(hit.normal, &probabilityAmbient), epsilon);
 		Hit ambientHit = launchRay(ambientRay);
 
 		if (!ambientHit.reached) {
-			accumulatedColor += ambientColor * mask;
+			accumulatedNow += hit.material.diffuseColor * lambertBrdf(ambientRay.dir, ray.dir, hit.normal)
+				* ambientColor
+				* glm::max(glm::dot(hit.normal, ambientRay.dir), 0.0f)
+				/ probabilityAmbient;
 		}
 
 		// lights
@@ -77,12 +92,21 @@ vec3 Scene::doPathTracing(Ray ray) const
 			Hit lightHit = launchRay(lightRay);
 
 			if (!lightHit.reached) {
-				accumulatedColor += l->getColor(hit.pos) * glm::max(glm::dot(hit.normal, lightRay.dir), 0.0f) * mask;
+				accumulatedNow += hit.material.diffuseColor * lambertBrdf(lightRay.dir, ray.dir, hit.normal)
+					* l->getColor(hit.pos)
+					* glm::max(glm::dot(hit.normal, lightRay.dir), 0.0f);
 			}
 		}
 
+		accumulatedColor += mask * accumulatedNow;
+
+		// Sooooooo... no dividing by russian roulette probabiility? :o
+
 		// path
-		ray = Ray(hit.pos, cosineDirection(hit.normal), epsilon);
+		Ray newRay = Ray(hit.pos, cosineDirection(hit.normal, &probabilityBounce), epsilon);
+		
+		mask *= hit.material.diffuseColor * lambertBrdf(newRay.dir, ray.dir, hit.normal) * glm::max(glm::dot(hit.normal, newRay.dir), 0.0f) / probabilityBounce;
+		ray = newRay;
 		bounce++;
 	} while (dice() < russianRoulette);
 

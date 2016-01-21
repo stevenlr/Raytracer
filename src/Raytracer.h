@@ -23,6 +23,7 @@ class DirectionalLight;
 class PointLight;
 
 #define PI_F 3.14159265359f
+#define INV_PI_F 0.31830988618f
 
 #include "core/Material.h"
 #include "core/Hit.h"
