@@ -14,9 +14,9 @@ using namespace cimg_library;
 
 int main(int argc, char *argv[])
 {
-	const int width = 400;
-	const int height = 300;
-	const int nbIter = 1000;
+	const int width = 800;
+	const int height = 600;
+	const int nbIter = 2000;
 	const int ssNbRays = 4;
 
 	CImg<float> image(width, height, 1, 3);
@@ -31,12 +31,12 @@ int main(int argc, char *argv[])
 	scene.setAmbientColor(glm::pow(vec3(0.05f, 0.05f, 0.1f) * 0.0f, glm::vec3(1.f)));
 
 	Object *sphere1 = new Sphere(0.5f, Material(glm::vec3(1)));
-	Object *sphere2 = new Sphere(0.25f, Material(glm::vec3(1)));
+	Object *sphere2 = new Sphere(0.25f, Material(glm::vec3(1), 1, 0));
 	Object *ceiling = new Disc(vec3(0, 0, -1), 4, Material(glm::pow(glm::vec3(0.7f), vec3(1.f))));
-	Object *lightCeiling = new Disc(vec3(0, 0, -1), 0.75f, Material(glm::pow(glm::vec3(0.7f), vec3(1.f)), 10));
+	Object *lightCeiling = new Disc(vec3(0, 0, -1), 0.75f, Material(glm::pow(glm::vec3(0.7f), vec3(1.f)), 0, 1, 10));
 
 	Object *wallBack = new Disc(vec3(0, -1, 0), 4, Material(glm::pow(glm::vec3(0.7f), vec3(1.f))));
-	Object *floor = new Plane(vec3(0, 0, 1), Material(glm::pow(glm::vec3(0.7f), vec3(1.f))));
+	Object *floor = new Plane(vec3(0, 0, 1), Material(glm::pow(glm::vec3(0.7f), vec3(1.f)), 1, 0.5));
 	Object *wallLeft = new Disc(vec3(1, 0, 0), 4, Material(glm::pow(glm::vec3(1, 0.2f, 0.2f), vec3(1.f))));
 	Object *wallRight = new Disc(vec3(-1, 0, 0), 4, Material(glm::pow(glm::vec3(0.5f, 0.5f, 1), vec3(1.f))));
 	Object *mesh = new Mesh(model1, Material(glm::vec3(0.7f, 0.7f, 0.9f)));
