@@ -22,36 +22,6 @@ namespace
 	static default_random_engine generator;
 	static uniform_real_distribution<float> rand(0, 1);
 	static auto dice = bind(rand, generator);
-
-	void makeBase(vec3 normal, vec3 *b1, vec3 *b2)
-	{
-		if (fabsf(normal.x) > fabsf(normal.y)) {
-			float invLen = 1.0f / sqrtf(normal.x * normal.x + normal.z * normal.z);
-			*b1 = vec3(-normal.z * invLen, 0.0f, normal.x * invLen);
-		} else {
-			float invLen = 1.0f / sqrtf(normal.y * normal.y + normal.z * normal.z);
-			*b1 = vec3(0.0f, normal.z * invLen, -normal.y * invLen);
-		}
-
-		*b2 = glm::cross(normal, *b1);
-	}
-
-	vec3 cosineDirection(vec3 normal, float *probability)
-	{
-		vec3 b1, b2;
-		float a = dice() * 2 * PI_F;
-		float b = dice();
-
-		makeBase(normal, &b1, &b2);
-		*probability = sqrtf(1 - b) * INV_PI_F;
-
-		return normal * sqrtf(1 - b) + sqrtf(b) * (cosf(a) * b1 + sinf(a) * b2);
-	}
-
-	float lambertBrdf(vec3 in, vec3 out, vec3 normal)
-	{
-		return INV_PI_F;
-	}
 }
 
 vec3 Scene::doPathTracing(Ray ray) const
@@ -73,11 +43,11 @@ vec3 Scene::doPathTracing(Ray ray) const
 
 		// ambient
 		float probabilityAmbient;
-		Ray ambientRay(hit.pos, cosineDirection(hit.normal, &probabilityAmbient), epsilon);
+		Ray ambientRay(hit.pos, hit.material.sample(-ray.dir, hit.normal, &probabilityAmbient), epsilon);
 		Hit ambientHit = launchRay(ambientRay);
 
 		if (!ambientHit.reached) {
-			accumulatedNow += hit.material.diffuseColor * lambertBrdf(ambientRay.dir, ray.dir, hit.normal)
+			accumulatedNow += hit.material.diffuseColor * hit.material.brdf(ambientRay.dir, -ray.dir, hit.normal)
 				* ambientColor
 				* glm::max(glm::dot(hit.normal, ambientRay.dir), 0.0f)
 				/ probabilityAmbient;
@@ -92,7 +62,7 @@ vec3 Scene::doPathTracing(Ray ray) const
 			Hit lightHit = launchRay(lightRay);
 
 			if (!lightHit.reached) {
-				accumulatedNow += hit.material.diffuseColor * lambertBrdf(lightRay.dir, ray.dir, hit.normal)
+				accumulatedNow += hit.material.diffuseColor * hit.material.brdf(lightRay.dir, -ray.dir, hit.normal)
 					* l->getColor(hit.pos)
 					* glm::max(glm::dot(hit.normal, lightRay.dir), 0.0f);
 			}
@@ -106,9 +76,9 @@ vec3 Scene::doPathTracing(Ray ray) const
 		// Sooooooo... no dividing by russian roulette probabiility? :o
 
 		// path
-		Ray newRay = Ray(hit.pos, cosineDirection(hit.normal, &probabilityBounce), epsilon);
+		Ray newRay = Ray(hit.pos, hit.material.sample(-ray.dir, hit.normal, &probabilityBounce), epsilon);
 		
-		mask *= hit.material.diffuseColor * lambertBrdf(newRay.dir, ray.dir, hit.normal) * glm::max(glm::dot(hit.normal, newRay.dir), 0.0f) / probabilityBounce;
+		mask *= hit.material.diffuseColor * hit.material.brdf(newRay.dir, -ray.dir, hit.normal) * glm::max(glm::dot(hit.normal, newRay.dir), 0.0f) / probabilityBounce;
 		ray = newRay;
 		bounce++;
 	} while (dice() < russianRoulette);
