@@ -23,6 +23,15 @@ bool Mesh::intersect(Ray ray, Hit &hit) const
 {
 	ray.transformInv(transform);
 
+	bool reached = model.octree.intersect(ray, hit);
+	if (reached) {
+		hit.material = material;
+	}
+
+	return reached;
+}
+
+	/*
 	Sphere sphere(glm::length(model.max - model.min) / 2, material);
 	Hit hit2 = hit;
 	if (!sphere.intersect(ray, hit2)) {
@@ -64,5 +73,5 @@ bool Mesh::intersect(Ray ray, Hit &hit) const
 	}
 
 	return reached;
-}
+	*/
 

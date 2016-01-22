@@ -104,7 +104,7 @@ vec3 Scene::doPathTracing(Ray ray) const
 
 		// path
 		Ray newRay = Ray(hit.pos, cosineDirection(hit.normal, &probabilityBounce), epsilon);
-		
+
 		mask *= hit.material.diffuseColor * lambertBrdf(newRay.dir, ray.dir, hit.normal) * glm::max(glm::dot(hit.normal, newRay.dir), 0.0f) / probabilityBounce;
 		ray = newRay;
 		bounce++;

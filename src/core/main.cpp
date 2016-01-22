@@ -16,8 +16,8 @@ int main(int argc, char *argv[])
 {
 	const int width = 400;
 	const int height = 300;
-	const int nbIter = 1000;
-	const int ssNbRays = 4;
+	const int nbIter = 100;
+	const int ssNbRays = 1;
 
 	CImg<float> image(width, height, 1, 3);
 	CImg<float> finalImage(width, height, 1, 3);
@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 	Camera camera(vec3(0, -5, 0), vec3(0, 0, 0), vec3(0, 0, 1),
 	              70, width, height, 0.01f, 1000.0f);
 	Scene scene;
-	MeshModel model1("models/asteroid.obj");
+	MeshModel model1("models/ship.obj");
 
 	scene.setAmbientColor(glm::pow(vec3(0.05f, 0.05f, 0.1f), glm::vec3(1.f)));
 
@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 	scene.addObject(wallBack);
 	scene.addObject(wallLeft);
 	scene.addObject(wallRight);
-	//scene.addObject(mesh);
+	scene.addObject(mesh);
 
 	Light *sun = new DirectionalLight(glm::normalize(vec3(-1, 0.3f, -1)), glm::pow(glm::vec3(1, 0.98, 0.95), glm::vec3(1.f)));
 	Light *point = new PointLight(vec3(-1, -1.5f, 0), vec3(0, 0.5f, 0.6f), vec3(0, 0, 1));

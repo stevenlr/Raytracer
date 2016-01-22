@@ -33,8 +33,8 @@ class PointLight;
 #include "core/Camera.h"
 #include "core/Scene.h"
 #include "core/Ray.h"
-#include "core/MeshModel.h"
 #include "core/Octree.h"
+#include "core/MeshModel.h"
 
 #include "primitives/Sphere.h"
 #include "primitives/Plane.h"

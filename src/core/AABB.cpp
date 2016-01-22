@@ -26,10 +26,10 @@ bool AABB::intersect(Ray ray, Hit &hit) const
 
 bool AABB::intersect(AABB aabb) const
 {
-	return    aabb.pos.x 			<= pos2.x - 1
-	       && aabb.pos2.x - 1		>= pos.x
-	       && aabb.pos.y			<= pos2.y - 1
-	       && aabb.pos2.y - 1		>= pos.y
-	       && aabb.pos.z			<= pos2.z - 1
-	       && aabb.pos2.z - 1		>= pos.z;
+	return    aabb.pos.x <= pos2.x
+	       && aabb.pos2.x >= pos.x
+	       && aabb.pos.y <= pos2.y
+	       && aabb.pos2.y >= pos.y
+	       && aabb.pos.z <= pos2.z
+	       && aabb.pos2.z >= pos.z;
 }

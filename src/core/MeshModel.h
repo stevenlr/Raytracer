@@ -18,6 +18,8 @@ public:
 	std::vector<unsigned int> normal_elements;
 	glm::vec3 min;
 	glm::vec3 max;
+
+	Octree octree;
 };
 
 #endif

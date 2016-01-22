@@ -11,6 +11,7 @@
 class Octree
 {
 public:
+	Octree() = default;
 	Octree(AABB &box, std::list<Object*> &objects, Octree *parent);
 
 	Octree *parent;

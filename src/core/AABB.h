@@ -7,7 +7,7 @@ class AABB
 {
 public:
 	AABB() = default;
-	AABB(glm::vec3 &pos, glm::vec3 &pos2) :
+	AABB(glm::vec3 pos, glm::vec3 pos2) :
 		pos(pos), pos2(pos2)
 	{}
 

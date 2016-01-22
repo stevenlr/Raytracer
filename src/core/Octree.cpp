@@ -1,4 +1,4 @@
-#include "Octree.h"
+#include "Raytracer.h"
 
 #include <limits>
 
@@ -67,7 +67,7 @@ bool Octree::intersect(Ray ray, Hit &hit) const
 {
 	Hit hitTmp = hit;
 
-	boundingBox.intersect(ray, hit);
+	boundingBox.intersect(ray, hitTmp);
 
 	if (hitTmp.reached) {
 		for (auto it = objects.begin(); it != objects.end(); ++it) {
