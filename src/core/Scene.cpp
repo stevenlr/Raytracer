@@ -98,6 +98,9 @@ vec3 Scene::doPathTracing(Ray ray) const
 			}
 		}
 
+		// Material emission
+		accumulatedNow += hit.material.diffuseColor * hit.material.emission;
+
 		accumulatedColor += mask * accumulatedNow;
 
 		// Sooooooo... no dividing by russian roulette probabiility? :o
